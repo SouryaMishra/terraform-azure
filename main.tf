@@ -40,6 +40,29 @@ resource "azurerm_subnet" "my-subnet" {
   address_prefixes     = ["10.123.1.0/24"]
 }
 
+resource "azurerm_network_security_group" "my-nsg" {
+  name                = "myNetworkSecurityGroup"
+  resource_group_name = azurerm_resource_group.my-rg.name
+  location            = azurerm_resource_group.my-rg.location
+  tags = {
+    environment = "dev"
+  }
+}
+
+resource "azurerm_network_security_rule" "my-dev-rule" {
+  name                        = "myNetworkSecurityDevRule"
+  priority                    = 100
+  direction                   = "Inbound"
+  access                      = "Allow"
+  protocol                    = "*"
+  source_port_range           = "*"
+  destination_port_range      = "*"
+  source_address_prefix       = "*" // my public ip address can also be added
+  destination_address_prefix  = "*"
+  resource_group_name         = azurerm_resource_group.my-rg.name
+  network_security_group_name = azurerm_network_security_group.my-nsg.name
+}
+
 moved {
   from = azurerm_resource_group.sm-rg
   to   = azurerm_resource_group.my-rg
