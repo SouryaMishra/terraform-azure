@@ -103,6 +103,8 @@ resource "azurerm_linux_virtual_machine" "my-linux-vm" {
   admin_username        = "adminuser"
   network_interface_ids = [azurerm_network_interface.my-nic.id]
 
+  custom_data = filebase64("customdata.tpl") // VM needs to br re-deployed for custom_data to be read
+
   admin_ssh_key {
     username   = "adminuser"
     public_key = file("~/.ssh/azure_key.pub")
