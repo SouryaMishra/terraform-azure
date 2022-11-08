@@ -1,0 +1,5 @@
+1. Add ssh-extension from vscode extensions marketplace.
+2. Press Ctrl + Shift + P, search for ssh and add new ssh host by specifying SSH connection e.g.
+   ssh admin@admin.com
+3. Select SSH config file to update e.g. C:\Users\soury\.ssh\config
+4. Create files specific to your OS and add the script. Make sure the SSH config file path is same as the previous step.
