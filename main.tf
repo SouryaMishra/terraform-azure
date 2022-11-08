@@ -33,6 +33,13 @@ resource "azurerm_virtual_network" "my-vn" {
   }
 }
 
+resource "azurerm_subnet" "my-subnet" {
+  name                 = "mySubnet-1"
+  resource_group_name  = azurerm_resource_group.my-rg.name
+  virtual_network_name = azurerm_virtual_network.my-vn.name
+  address_prefixes     = ["10.123.1.0/24"]
+}
+
 moved {
   from = azurerm_resource_group.sm-rg
   to   = azurerm_resource_group.my-rg
