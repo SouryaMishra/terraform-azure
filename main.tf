@@ -68,6 +68,16 @@ resource "azurerm_subnet_network_security_group_association" "my-sga" {
   network_security_group_id = azurerm_network_security_group.my-nsg.id
 }
 
+resource "azurerm_public_ip" "my-ip" {
+  name                = "myIP-1"
+  resource_group_name = azurerm_resource_group.my-rg.name
+  location            = azurerm_resource_group.my-rg.location
+  allocation_method   = "Dynamic"
+  tags = {
+    environment = "dev"
+  }
+}
+
 moved {
   from = azurerm_resource_group.sm-rg
   to   = azurerm_resource_group.my-rg
