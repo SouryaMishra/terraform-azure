@@ -12,3 +12,17 @@ terraform {
 provider "azurerm" {
   features {}
 }
+
+resource "azurerm_resource_group" "my-rg" {
+  name     = "myResourceGroup"
+  location = "South India"
+
+  tags = {
+    environment = "dev"
+  }
+}
+
+moved {
+  from = azurerm_resource_group.sm-rg
+  to = azurerm_resource_group.my-rg
+}
