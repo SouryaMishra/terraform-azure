@@ -63,6 +63,11 @@ resource "azurerm_network_security_rule" "my-dev-rule" {
   network_security_group_name = azurerm_network_security_group.my-nsg.name
 }
 
+resource "azurerm_subnet_network_security_group_association" "my-sga" {
+  subnet_id                 = azurerm_subnet.my-subnet.id
+  network_security_group_id = azurerm_network_security_group.my-nsg.id
+}
+
 moved {
   from = azurerm_resource_group.sm-rg
   to   = azurerm_resource_group.my-rg
