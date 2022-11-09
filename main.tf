@@ -121,7 +121,21 @@ resource "azurerm_linux_virtual_machine" "my-linux-vm" {
     sku       = "18.04-LTS"
     version   = "latest"
   }
+
+  # provisioner does not get picked up by state, so vm must be replaced
+  provisioner "local-exec" {
+    command = templatefile("windows-ssh-script.tpl", {
+      hostname     = self.public_ip_address,
+      user         = "adminuser",
+      identityfile = "~/.ssh/azure_key" // private ssh key
+    })
+    interpreter = [
+      "Powershell", "-Command"
+    ]
+  }
 }
+
+
 
 data "azurerm_public_ip" "my-ip-data" {
   name                = azurerm_public_ip.my-ip.name
