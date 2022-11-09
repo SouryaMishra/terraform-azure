@@ -133,6 +133,10 @@ resource "azurerm_linux_virtual_machine" "my-linux-vm" {
       "Powershell", "-Command"
     ]
   }
+
+  tags = {
+    environment = "dev"
+  }
 }
 
 
