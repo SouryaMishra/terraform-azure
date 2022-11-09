@@ -123,6 +123,10 @@ resource "azurerm_linux_virtual_machine" "my-linux-vm" {
   }
 }
 
+data "azurerm_public_ip" "my-ip-data" {
+  name                = azurerm_public_ip.my-ip.name
+  resource_group_name = azurerm_resource_group.my-rg.name
+}
 moved {
   from = azurerm_resource_group.sm-rg
   to   = azurerm_resource_group.my-rg
