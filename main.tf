@@ -124,14 +124,14 @@ resource "azurerm_linux_virtual_machine" "my-linux-vm" {
 
   # provisioner does not get picked up by state, so vm must be replaced
   provisioner "local-exec" {
-    command = templatefile("windows-ssh-script.tpl", {
+    command = templatefile("${var.host_os}-ssh-script.tpl", {
       hostname     = self.public_ip_address,
       user         = "adminuser",
       identityfile = "~/.ssh/azure_key" // private ssh key
     })
-    interpreter = [
+    interpreter = var.host_os == "windows" ? [
       "Powershell", "-Command"
-    ]
+    ] : ["bash", "-c"]
   }
 
   tags = {
